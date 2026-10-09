@@ -25,6 +25,7 @@ WIN = sys.platform == "win32"
 PORT = 47631
 WHEEL = 240
 FRAME = 0.016
+SLOW = 0.30
 
 
 class NoKeyboard(Exception):
@@ -64,7 +65,7 @@ def scale(rgb, brightness, extra=1.0):
     return tuple(max(0, min(255, int(c * level))) for c in rgb)
 
 
-def find_node():
+def find_node(want="01"):
     hits = []
     for sysfs in sorted(Path("/sys/class/hidraw").glob("hidraw*")):
         try:
@@ -82,11 +83,46 @@ def find_node():
             d = d.parent
         hits.append((iface, Path("/dev") / sysfs.name))
     for iface, node in hits:
-        if iface == "01":
+        if iface == want:
             return node
-    if hits:
+    if want == "01" and hits:
         return hits[-1][1]
     raise NoKeyboard()
+
+def behind_hub(fd):
+    try:
+        name = Path(f"/proc/self/fd/{fd}").resolve().name
+        d = Path("/sys/class/hidraw", name, "device").resolve()
+    except OSError:
+        return False
+    for _ in range(8):
+        if (d / "idVendor").exists():
+            return "." in d.name
+        d = d.parent
+    return False
+
+
+class Keys:
+    def __init__(self):
+        self.fd = None
+        self.until = 0.0
+
+    def busy(self):
+        if self.fd is None:
+            try:
+                self.fd = os.open(find_node("00"), os.O_RDONLY | os.O_NONBLOCK)
+            except (OSError, NoKeyboard):
+                return False
+        try:
+            while os.read(self.fd, 64):
+                self.until = time.monotonic() + 0.45
+        except BlockingIOError:
+            pass
+        except OSError:
+            os.close(self.fd)
+            self.fd = None
+            return False
+        return time.monotonic() < self.until
 def _guard(pkt):
     if pkt[0] != 0x08 or len(pkt) != 382 or pkt[1:4] != b"\x0a\x7a\x01" or b"\x05\x83\xb6" in pkt[:6]:
         raise RuntimeError("solo se puede enviar el color")
@@ -331,6 +367,8 @@ def render():
     def painter():
         fd = None
         last = None
+        gap = FRAME
+        keys = Keys()
         moving = IDS
         while True:
             now = time.monotonic()
@@ -346,6 +384,10 @@ def render():
                 try:
                     if fd is None:
                         fd = open_fd()
+                        gap = SLOW if behind_hub(fd) else FRAME
+                    if gap != FRAME and keys.busy():
+                        time.sleep(0.05)
+                        continue
                     fd = push(fd, rgb, slots)
                     last = current
                 except (NoKeyboard, OSError):
@@ -355,7 +397,7 @@ def render():
                     time.sleep(0.2)
                     continue
             if mode in moving:
-                time.sleep(FRAME)
+                time.sleep(gap)
             else:
                 wake.wait(0.5)
                 wake.clear()
