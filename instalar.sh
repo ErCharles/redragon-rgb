@@ -77,3 +77,7 @@ if command -v update-desktop-database >/dev/null 2>&1; then
 fi
 
 echo "Listo. Abre Teclado en el menú."
+if [ -t 0 ]; then
+  printf "Pulsa Enter para cerrar. "
+  read _
+fi

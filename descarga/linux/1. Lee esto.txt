@@ -1,0 +1,11 @@
+Teclado
+
+1. Haz doble clic en "2. Instalar Teclado".
+2. Si pregunta, elige Ejecutar. No elijas Mostrar.
+3. Escribe tu contraseña cuando la pida. Es solo para las luces.
+4. Abre Teclado en el menú de aplicaciones.
+
+Si se abre como un texto: clic derecho, Propiedades,
+marca permitir ejecutar y vuelve a hacer doble clic.
+
+No borres esta carpeta: el menú de Teclado la usa.

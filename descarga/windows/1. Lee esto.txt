@@ -1,0 +1,11 @@
+Teclado
+
+1. Haz doble clic en "2. Instalar Teclado".
+2. Se abre una ventana. Elige un color.
+
+Si dice que falta un programa, se abre una página.
+Descarga Python, instálalo sin quitar ninguna casilla
+y vuelve a hacer doble clic en "2. Instalar Teclado".
+
+No abras los otros archivos.
+No borres esta carpeta: el menú de Teclado la usa.

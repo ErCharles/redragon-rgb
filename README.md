@@ -1,4 +1,14 @@
 <p align="center">
+  <a href="https://github.com/ErCharles/redragon-rgb/releases/latest/download/Teclado-Windows.zip"><img alt="Descargar para Windows" src="https://img.shields.io/badge/Descargar_para-Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white"></a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/ErCharles/redragon-rgb/releases/latest/download/Teclado-Linux.zip"><img alt="Descargar para Linux" src="https://img.shields.io/badge/Descargar_para-Linux-E95420?style=for-the-badge&logo=linux&logoColor=white"></a>
+</p>
+
+<p align="center">
+  Abre el archivo. Entra en la carpeta <b>Teclado</b>. Doble clic en el que empieza por <b>2</b>.
+</p>
+
+<p align="center">
   <img src="assets/banner.png" alt="Teclado" width="880">
 </p>
 
@@ -12,33 +22,23 @@
 
 Sirve para el teclado que el sistema ve como `258A:0049` (varios Redragon y el mismo chip con otro nombre). Solo pinta luces. No instala el programa de la marca y no toca el firmware.
 
-## Linux
-
-Hace falta Python 3 con ventana (`tk`).
-
-```bash
-git clone https://github.com/ErCharles/redragon-rgb.git
-cd redragon-rgb
-./instalar.sh
-```
-
-La primera vez pide la contraseña del sistema, una sola vez, para poder hablar con las luces. Después abre **Teclado** en el menú. El color sigue al cerrar y al reiniciar.
-
-Si falta la ventana:
-
-- Arch: `sudo pacman -S tk`
-- Debian/Ubuntu: `sudo apt install python3-tk`
-- Fedora: `sudo dnf install python3-tkinter`
-
 ## Windows
 
-1. Instala Python desde [python.org](https://www.python.org/downloads/) y marca **Tcl/Tk**.
-2. Descarga esta carpeta y ábrela.
-3. Doble clic en **Instalar.bat**.
+1. Pulsa el botón azul.
+2. Abre el archivo descargado.
+3. Doble clic en **2. Instalar Teclado**.
 
-Se abre la misma ventana. La primera vez deja **Teclado** en el menú de inicio. El color sigue al cerrar y al reiniciar.
+Si pide otro programa, se abre una página. Instala Python sin quitar ninguna casilla y vuelve a hacer doble clic.
 
-Si ya tienes Python, **Teclado.vbs** abre la ventana sin consola.
+## Linux
+
+1. Pulsa el botón naranja.
+2. Abre el archivo descargado.
+3. Doble clic en **2. Instalar Teclado**. Si pregunta, elige **Ejecutar**.
+4. Escribe tu contraseña cuando la pida. Es solo para las luces.
+5. Abre **Teclado** en el menú.
+
+No borres la carpeta. El menú la usa.
 
 ## Qué puedes hacer
 
